@@ -1,0 +1,130 @@
+h1{
+  font-family:   Verdana, sans-serif;
+  text-align:center; 
+  margin-top:"0px";
+  text-decoration-line: underline;
+  text-decoration-color: rgb(95, 219, 170);  
+  text-decoration-style: wavy; 
+  text-decoration-thickness: 4px;
+}
+.smallApp{
+  display: flex;
+  justify-content: space-around;
+}
+
+.game{
+  width: 560px;
+  height: 560px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px;
+  border: 3px solid red;
+  background-color: black;
+}
+
+.game img{
+  width: 70px;
+  height: 70px;
+}
+
+.textContent{
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.score{
+  /* border: 2px solid red; */
+  width: 150px;
+  text-align: center;
+  padding: 0px;
+  position: relative;
+  border-radius: 50px;
+  left: 450px;
+}
+
+.scroeText{
+  color: rgba(253, 253, 253, 0.996);
+}
+
+.scoreBoard{
+  color: black;
+  font-size: 50px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+ul{
+  margin-top: 140px;
+  font-size: 30px;
+}
+.gameRules{
+  font-style: italic;
+  width: 600px;
+}
+
+@media screen and (max-width:400px){
+
+  .game{
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    border: 1px solid red;
+    background-color: black;
+    margin: 18px;
+  }
+
+  .smallApp{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .game img{
+    width: 35.5px;
+    height: 35.5px;
+    padding: 1px;
+  }
+
+  .textContent{
+    font-family: sans-serif;
+    display: block;
+  }
+
+  .score{
+    width: 200px;
+    text-align: center;
+    padding: 5px;
+    position: relative;
+    border-radius: 50px;
+    left: 80px;
+  }
+
+  .scroeText{
+    color: rgba(253, 253, 253, 0.996);
+    font-size: 15px;
+  }
+  
+  .scoreBoard{
+    color: black;
+    font-size: 25px;
+    padding-top: 0px;
+    margin-top: 0px;
+  }
+  
+  ul{
+    margin-top: 9px;
+    font-size: 20px;
+  }
+
+  li{
+    margin:20px;
+  }
+
+  .gameRules{
+    font-style: italic;
+    width: 300px;
+  }
+  
+}
