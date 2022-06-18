@@ -168,7 +168,7 @@ const App = () => {
       setCurrentColorArrangement([...currentColorArrangement]);
     },100)
     return ()=>clearInterval(timer);
-  }, [])
+  })
 
   // checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement
  
