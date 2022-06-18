@@ -35,7 +35,7 @@ const App = () => {
 
   const checkForRowOfFour = () =>{
     for(let i=0; i<64; i++){
-      const rowOfFour = [i, ,i+1, i+2, i+3];
+      const rowOfFour = [i, i+1, i+2, i+3];
       const decidedColor= currentColorArrangement[i];
       const isBlank = currentColorArrangement[i] === blank; //blank shouldn't count in the score
       
