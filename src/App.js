@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import blueCandy from './images/blueCandy.png';
 import greenCandy from './images/greenCandy.png';
 import orangeCandy from './images/orangeCandy.png';
@@ -6,6 +6,7 @@ import purpleCandy from './images/purpleCandy.png';
 import redCandy from './images/redCandy.png';
 import yellowCandy from './images/yellowCandy.png';
 import blank from './images/blank.png';
+import logoImg from "./images/candyLogo.jpg"
 
 const width = 8; //width refers to the length 
 const candyColors = [blueCandy, greenCandy, orangeCandy, purpleCandy, redCandy, yellowCandy]; 
@@ -18,12 +19,12 @@ const App = () => {
   const [score, setScore] = useState(0);
 
   // checking that 4columns are = or not
-  const checkForColumnOfFour = () =>{
+  const checkForColumnOfFour = useCallback(() =>{    //here useCallbacke is used because this kind of functions(5) are re-rendering multiple times
     for(let i=0; i<=39; i++){
       const columnOfFour = [i, i+width, i+width*2, i+width*3]; 
-      const decidedColor= currentColorArrangement[i];
+      const decidedColor = currentColorArrangement[i];
       const isBlank = currentColorArrangement[i] === blank; //blank shouldn't count in the score
-
+ 
       // checking that 4 columns colors are equal or not
       if(columnOfFour.every(squre => currentColorArrangement[squre]===decidedColor) && (!isBlank)){
         setScore(score+4);
@@ -31,9 +32,9 @@ const App = () => {
         return true; //this will store in onther var
       }
     }
-  }
+  },[currentColorArrangement,score])
 
-  const checkForRowOfFour = () =>{
+  const checkForRowOfFour = useCallback(() =>{
     for(let i=0; i<64; i++){
       const rowOfFour = [i, i+1, i+2, i+3];
       const decidedColor= currentColorArrangement[i];
@@ -48,9 +49,9 @@ const App = () => {
         return true; //this will store in onther var
       }
     }
-  }
+  },[currentColorArrangement,score])
 
-  const checkForColumnOfThree = () =>{
+  const checkForColumnOfThree = useCallback(() =>{
     for(let i=0; i<=47; i++){
       const columnOfThree = [i, i+width, i+width*2];
       const decidedColor= currentColorArrangement[i];
@@ -63,9 +64,9 @@ const App = () => {
         return true; //this will store in onther var
       }
     }
-  }
+  },[currentColorArrangement,score])
 
-  const checkForRowOfThree = () =>{
+  const checkForRowOfThree = useCallback(() =>{
     for(let i=0; i<64; i++){
       const rowOfThree = [i, i+1, i+2];
       const decidedColor= currentColorArrangement[i];
@@ -74,17 +75,17 @@ const App = () => {
 
       
       if(notValid.includes(i)) continue;
-
+// every() returns true if all elements in an array pass a test (provided as a function).
       if(rowOfThree.every(squre => currentColorArrangement[squre] === decidedColor) && (!isBlank)){
         setScore(score+3);
         rowOfThree.forEach((squre)=>currentColorArrangement[squre]=blank);
         return true; //this will store in onther var
       }
     }
-  }
+  },[currentColorArrangement,score])
 
   // moving down the colors who are empty
-  const moveIntoSquareBelow = () =>{
+  const moveIntoSquareBelow = useCallback(() =>{
     for(let i = 0; i<=55; i++){
 
       // generating a random color to the top side
@@ -101,14 +102,17 @@ const App = () => {
         currentColorArrangement[i] = blank
       }
     }
-  }
+  },[currentColorArrangement])
+
 
   const dragStart = (event) =>{
     setSquareBeingDragged(event.target)
   }
+
   const dragDrop = (event) =>{
     setSquareBeingReplaced(event.target);
   }
+
   const dragEnd = () =>{
     const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('data-id'));
     const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('data-id'));
@@ -159,6 +163,7 @@ const App = () => {
   }, []);
 
   useEffect(()=>{
+    console.log("times")
     const timer = setInterval(()=>{
       checkForColumnOfFour();
       checkForRowOfFour();
@@ -169,13 +174,10 @@ const App = () => {
     },100)
     return ()=>clearInterval(timer);
   }, [checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
-
-  
  
-
   return (
       <div className="app">
-        <h1>Candy Crush</h1>      
+      <h1><img src = {logoImg} alt="cnadyLogo"/></h1>
         <div className="smallApp">
           <div className="game">
             {currentColorArrangement.map((candyColor, index)=>(
@@ -197,7 +199,7 @@ const App = () => {
             ))}
           </div>
           <div className="textContent">
-            
+
             <div className="score"  style={{backgroundColor:`rgb(${Math.floor(Math.random()*255)} ${Math.floor(Math.random()*255)} ${Math.floor(Math.random()*255)})`}}>
               <h2 className="scroeText">Score</h2>
               <h2 className="scoreBoard">{score}</h2>

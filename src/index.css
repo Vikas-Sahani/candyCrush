@@ -7,6 +7,7 @@ h1{
   text-decoration-style: wavy; 
   text-decoration-thickness: 4px;
 }
+
 .smallApp{
   display: flex;
   justify-content: space-around;
@@ -64,6 +65,10 @@ ul{
 }
 
 @media screen and (max-width:400px){
+  /* img[alt="cnadyLogo"]{
+    position: absolute;
+    left: 0px;
+  } */
 
   .game{
     width: 300px;
