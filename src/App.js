@@ -18,6 +18,40 @@ const App = () => {
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
   const [score, setScore] = useState(0);
 
+  // checking that 5 columns are = or not
+  const checkForColumnOfFive = useCallback(() =>{    //here useCallbacke is used because this kind of functions(5) are re-rendering multiple times
+    for(let i=0; i<=31; i++){
+      const columnOfFive = [i, i+width, i+width*2, i+width*3, i+width*4]; 
+      const decidedColor = currentColorArrangement[i];
+      const isBlank = currentColorArrangement[i] === blank; //blank shouldn't count in the score
+ 
+      // checking that 5 columns colors are equal or not
+      if(columnOfFive.every(squre => currentColorArrangement[squre]===decidedColor) && (!isBlank)){
+        setScore(score+5);
+        columnOfFive.forEach((squre)=>currentColorArrangement[squre]=blank);
+        return true; //this will store in onther var
+      }
+    }
+  },[currentColorArrangement,score])
+  
+  // checking that 5Rows are = or not
+  const checkForRowOfFive = useCallback(() =>{
+    for(let i=0; i<64; i++){
+      const rowOfFive = [i, i+1, i+2, i+3, i+4];
+      const decidedColor= currentColorArrangement[i];
+      const isBlank = currentColorArrangement[i] === blank; //blank shouldn't count in the score
+      
+      const notValid = [4,5,6,7, 12,13,14,15, 20,21,22,23, 28,29,30,31, 36,37,38,39, 44,45,46,47, 52,53,54,55, 60,61,62,63]
+      if(notValid.includes(i)) continue;
+
+      if(rowOfFive.every(squre => currentColorArrangement[squre]===decidedColor) && (!isBlank)){
+        setScore(score+5);
+        rowOfFive.forEach((squre)=>currentColorArrangement[squre]=blank)
+        return true; //this will store in onther var
+      }
+    }
+  },[currentColorArrangement,score])
+  
   // checking that 4columns are = or not
   const checkForColumnOfFour = useCallback(() =>{    //here useCallbacke is used because this kind of functions(5) are re-rendering multiple times
     for(let i=0; i<=39; i++){
@@ -117,9 +151,8 @@ const App = () => {
     const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('data-id'));
     const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('data-id'));
 
-    //adlabadli
-    currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.getAttribute('src');
-    currentColorArrangement[squareBeingDraggedId] = squareBeingReplaced.getAttribute('src');
+    // //adlabadli
+    
 
     const validMoves = [
       squareBeingDraggedId-1,    //left
@@ -130,13 +163,20 @@ const App = () => {
 
     const validMove = validMoves.includes(squareBeingReplacedId);
 
+    if(validMove){
+      currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.getAttribute('src');
+      currentColorArrangement[squareBeingDraggedId] = squareBeingReplaced.getAttribute('src');
+    }
+
+    const isAColumnOfFive = checkForColumnOfFive();
+    const isARowOfFive = checkForRowOfFive();
     const isAColumnOfFour = checkForColumnOfFour();
     const isARowOfFour = checkForRowOfFour();
     const isAColumnOfThree = checkForColumnOfThree();
     const isARowOfThree = checkForRowOfThree();
 
-    if(squareBeingReplacedId && validMove &&
-      (isARowOfThree || isARowOfFour|| isAColumnOfFour || isAColumnOfThree)){
+    if(squareBeingReplaced && validMove &&
+      (isARowOfThree || isARowOfFour || isARowOfFive || isAColumnOfThree ||isAColumnOfFour || isAColumnOfFive)){
         setSquareBeingDragged(null);
         setSquareBeingReplaced(null);
       }
@@ -144,9 +184,9 @@ const App = () => {
         currentColorArrangement[squareBeingReplacedId] = squareBeingReplaced.getAttribute('src');
         currentColorArrangement[squareBeingDraggedId] = squareBeingDragged.getAttribute('src');
         setCurrentColorArrangement([...currentColorArrangement]);
+        console.log(isAColumnOfThree);
       }
   }
-
 
   const createBoard = () => {
     const randomColorArrangement = [];
@@ -157,14 +197,14 @@ const App = () => {
     setCurrentColorArrangement(randomColorArrangement)
   }
 
-  
   useEffect(() =>{
     createBoard()
   }, []);
 
   useEffect(()=>{
-    console.log("times")
     const timer = setInterval(()=>{
+      checkForColumnOfFive();
+      checkForRowOfFive();
       checkForColumnOfFour();
       checkForRowOfFour();
       checkForColumnOfThree();
@@ -173,7 +213,7 @@ const App = () => {
       setCurrentColorArrangement([...currentColorArrangement]);
     },100)
     return ()=>clearInterval(timer);
-  }, [checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
+  }, [checkForColumnOfFive,checkForRowOfFive,checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
  
   return (
       <div className="app">
