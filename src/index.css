@@ -62,7 +62,7 @@ ul{
   font-weight: 900;
 }
 ul li{
-  margin: 10px;
+  margin: 4px;
 }
 .gameRules{
   display: flex;
@@ -89,7 +89,7 @@ ul li{
   border-radius: 15px;
 }
 
-@media screen and (max-width:400px){
+/* @media screen and (max-width:400px){
   img[alt="cnadyLogo"]{
     position: absolute;
     left: 0px;
@@ -158,4 +158,4 @@ ul li{
     width: 500px;
   }
   
-}
+} */

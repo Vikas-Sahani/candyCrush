@@ -20,10 +20,10 @@ export default function GameRule(props) {
             If 3 rows or columns are matched then score will increase by 3.
           </li>
           <li>
-            If 4 rows or columns are matched then score will increase by 4
+            If 4 rows or columns are matched then score will increase by 4.
           </li>
           <li>
-            If 5 rows or columns are matched then score will increase by 5
+            If 5 rows or columns are matched then score will increase by 5.
           </li>
         </ul>
         <button
