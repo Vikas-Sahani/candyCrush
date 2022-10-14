@@ -1,16 +1,15 @@
 h1{
-  font-family:   Verdana, sans-serif;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: Verdana, sans-serif;
   text-align:center; 
-  margin-top:"0px";
-  text-decoration-line: underline;
-  text-decoration-color: rgb(95, 219, 170);  
-  text-decoration-style: wavy; 
-  text-decoration-thickness: 4px;
+  
 }
 
 .smallApp{
   display: flex;
-  justify-content: space-around;
+  justify-content:space-around;
 }
 
 .game{
@@ -35,13 +34,12 @@ h1{
 }
 
 .score{
-  /* border: 2px solid red; */
   width: 150px;
   text-align: center;
   padding: 0px;
   position: relative;
   border-radius: 50px;
-  left: 450px;
+  /* left: 150px; */
 }
 
 .scroeText{
@@ -56,19 +54,46 @@ h1{
 }
 
 ul{
-  margin-top: 140px;
-  font-size: 30px;
+  /* margin-top: 140px; */
+  font-size: 27px;
+  background-color: wheat;
+  opacity: 0.7;
+  border-radius: 50px;
+  font-weight: 900;
+}
+ul li{
+  margin: 10px;
 }
 .gameRules{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-image: url(https://source.unsplash.com/1600x900/?candys);
+  background-blend-mode:unset;
+  background-repeat: no-repeat;
+  background-size: 700px 500px;
   font-style: italic;
-  width: 600px;
+  width: 700px;
+  position: relative;
+  left: 400px;
+}
+
+.gameRules ul h3{
+  text-align: center;
+}
+
+ button{
+  width: 100px;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 15px;
 }
 
 @media screen and (max-width:400px){
-  /* img[alt="cnadyLogo"]{
+  img[alt="cnadyLogo"]{
     position: absolute;
     left: 0px;
-  } */
+  }
 
   .game{
     width: 300px;
@@ -128,8 +153,9 @@ ul{
   }
 
   .gameRules{
+    border: 2px solid red;
     font-style: italic;
-    width: 300px;
+    width: 500px;
   }
   
 }
