@@ -16,9 +16,11 @@ function Congrats(props) {
         borderRadius: "50px",
         backgroundColor: "Scrollbar",
         zIndex: 1,
+        color: "white",
+        backgroundImage: "conic-gradient(red, yellow, green, blue,orange)",
       }}
     >
-      <img src={congrats} alt="Congrats" />
+      <img src={congrats} alt="Congrats" style={{ borderRadius: "30px" }} />
       <h3>Congratulations, you have cleared</h3>
       <h2>Level {props.level}</h2>
       <h1>& {props.targt} Target</h1>
